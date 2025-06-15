@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>EWAKO ROYAL</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#B71C1C" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #121212; /* Slightly Lighter Dark Background */
+      color: #FFFFFF;
+      max-width: 1920px; /* Optional: constrain max width for very large screens */
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* Custom scrollbar for a more elegant look */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #2D2D2D; /* Darker track */
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #B71C1C; /* Metallic Red */
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D4AF37; /* Metallic Gold on hover */
+    }
+    .metallic-red-bg {
+      background-image: linear-gradient(to right bottom, #c81e1e, #b71c1c, #a61a1a, #951818, #851616);
+    }
+    .metallic-gold-text {
+      color: #D4AF37;
+    }
+    .metallic-gold-highlight {
+      border-color: #D4AF37;
+      color: #D4AF37;
+    }
+    .active-nav-link svg {
+      color: #D4AF37; /* Metallic Gold */
+    }
+    .active-nav-link span {
+      color: #D4AF37; /* Metallic Gold */
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+      filter: invert(1); /* Makes the calendar icon visible on dark backgrounds */
+    }
+    .neon-text-effect { /* For general use if needed, with flicker */
+      color: #fff; 
+      text-shadow: 
+        0 0 5px #D4AF37, 
+        0 0 10px #D4AF37, 
+        0 0 15px #D4AF37, 
+        0 0 20px #B71C1C, 
+        0 0 25px #B71C1C,
+        0 0 30px #B71C1C;
+      animation: neon-flicker 2s infinite alternate;
+    }
+
+    @keyframes neon-flicker {
+      0%, 100% {
+        text-shadow: 
+          0 0 5px #D4AF37, 0 0 10px #D4AF37, 0 0 15px #D4AF37, 
+          0 0 20px #B71C1C, 0 0 25px #B71C1C, 0 0 30px #B71C1C;
+      }
+      50% {
+        text-shadow: 
+          0 0 3px #FFF, 0 0 6px #D4AF37, 0 0 12px #D4AF37, 
+          0 0 18px #B71C1C;
+      }
+    }
+    
+    .static-neon-text { /* Static neon for clocks */
+      color: #fff;
+      text-shadow:
+        0 0 3px #FBBF24, /* Brighter yellow */
+        0 0 6px #F59E0B, /* Gold */
+        0 0 9px #D97706, /* Darker Gold */
+        0 0 12px #B71C1C; /* Red hint */
+    }
+
+    .clock-face {
+      /* width and height will be set by Tailwind classes on the element */
+      background-color: #1F2937; /* Darker gray-blue */
+      border-radius: 50%;
+      border: 3px solid #D4AF37; 
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.5), inset 0 0 10px rgba(0,0,0,0.5);
+      position: relative;
+      margin: auto; /* Center clock in its grid cell */
+    }
+
+    .clock-hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      border-radius: 4px 4px 0 0; 
+      z-index: 10;
+    }
+
+    .hour-hand {
+      width: 7px; /* This can be responsive with calc or JS if needed, or slightly thicker for smaller clocks */
+      height: 25%; 
+      background-color: #F0E68C; /* Khaki - for base color under neon */
+      box-shadow: 0 0 2px #D4AF37, 0 0 4px #D4AF37, 0 0 6px #FBBF24;
+    }
+
+    .minute-hand {
+      width: 5px;
+      height: 35%;
+      background-color: #F0E68C;
+      box-shadow: 0 0 2px #D4AF37, 0 0 4px #D4AF37, 0 0 6px #FBBF24;
+    }
+
+    .second-hand {
+      width: 2px;
+      height: 40%;
+      background-color: #FF4D4D; /* Lighter Red for seconds */
+      box-shadow: 0 0 3px #B71C1C, 0 0 5px #DC2626;
+    }
+
+    .clock-center-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12px; /* Fixed size, generally okay */
+      height: 12px;
+      background-color: #B71C1C; 
+      border: 2px solid #D4AF37;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 11; /* Above hands */
+    }
+    
+    .hour-marker {
+      position: absolute;
+      left: 50%;
+      top: 0; 
+      width: 2px; 
+      height: 100%; 
+      transform-origin: center center;
+    }
+    .hour-marker > div { /* The visible marker line */
+      width: 100%;
+      height: 8px; 
+      background-color: rgba(212, 175, 55, 0.7); 
+      position: absolute;
+      top: 6px; /* Distance from edge, might need adjustment if clock size changes drastically */
+      border-radius:1px;
+    }
+     .hour-marker.major > div { /* Longer markers for 3, 6, 9, 12 */
+      height: 12px;
+      background-color: #D4AF37;
+    }
+
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "jspdf": "https://esm.sh/jspdf@^3.0.1",
+    "jspdf-autotable": "https://esm.sh/jspdf-autotable@^5.0.2",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.6.2",
+    "@heroicons/react/": "https://esm.sh/@heroicons/react@^2.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx?v=debug_v20_dynamic_help"></script> 
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').then(registration => {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          
+          registration.addEventListener('updatefound', () => {
+            // A new service worker is installing.
+            console.log('A new service worker is installing (updatefound event).');
+            const newWorker = registration.installing;
+            if (newWorker) {
+              newWorker.addEventListener('statechange', () => {
+                // newWorker.state has changed
+                console.log('New service worker state changed to:', newWorker.state);
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // New worker is installed, but an old one is still controlling the page.
+                    // You might prompt the user to reload here if you don't use clients.claim()
+                    // and skipWaiting() aggressively.
+                    console.log('New service worker installed and ready to take over.');
+                }
+              });
+            }
+          });
+        }, err => {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+        
+        let refreshing;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          // This event fires when the service worker controlling this page changes.
+          // This can happen when a new service worker has activated and claimed the clients.
+          if (refreshing) return;
+          console.log('Controller changed. New service worker has activated. Reloading page...');
+          window.location.reload();
+          refreshing = true;
+        });
+      });
+    }
+  </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
